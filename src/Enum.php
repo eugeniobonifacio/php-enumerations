@@ -53,6 +53,19 @@ class Enum
             self::$enums[$enumInterfaceClass] = self::$initializers[$enumInterfaceClass]->enumInit();
             return self::$enums[$enumInterfaceClass];
         }
+        elseif(method_exists($enumInterfaceClass, 'enumInit')) {
+
+            $result = call_user_func([$enumInterfaceClass, 'enumInit']);
+
+            if($result instanceof EnumContainer) {
+                self::$enums[$enumInterfaceClass] = $result;
+            }
+            else {
+                throw new EnumException("Enum '" . $enumInterfaceClass . "' static enumInit() did not return an '" . EnumContainer::class . "' object");
+            }
+
+            return self::$enums[$enumInterfaceClass];
+        }
 
         throw new EnumException("Enum not defined for class '{$enumInterfaceClass}'");
     }
