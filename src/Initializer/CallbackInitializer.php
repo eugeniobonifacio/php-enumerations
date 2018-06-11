@@ -9,33 +9,49 @@
 namespace EugenioBonifacio\Enumerations\Initializer;
 
 
-use EugenioBonifacio\Enumerations\Enum;
+use EugenioBonifacio\Enumerations\EnumContainer;
+use EugenioBonifacio\Enumerations\EnumException;
 use EugenioBonifacio\Enumerations\EnumInitializerInterface;
 use EugenioBonifacio\Enumerations\EnumInterface;
 
 class CallbackInitializer implements EnumInitializerInterface
 {
-    /**
-     * @return Enum
-     */
-    public function enumInit(EnumInterface $enum, $values = [])
-    {
-        $this->values = $values;
+    protected $enumInterfaceClass = null;
+    protected $callback = null;
 
-        if(!in_array(EnumInterface::class, class_implements($class))) {
-            throw new EnumException("'" . get_class($class) ."' must implement EnumInterface");
+    /**
+     * ReflectionConstantsInitializer constructor.
+     * @param string $prefix
+     */
+    public function __construct($enumInterfaceClass, callable $callback)
+    {
+        $this->enumInterfaceClass = $enumInterfaceClass;
+        $this->callback = $callback;
+    }
+
+    /**
+     * @param string $enumInterfaceClass
+     * @param EnumInterface[] $enumValues
+     * @return EnumContainer
+     * @throws EnumException
+     */
+    public function enumInit()
+    {
+        $values = [];
+
+        if(!in_array(EnumInterface::class, class_implements($this->enumInterfaceClass))) {
+            throw new EnumException("'" . get_class($this->enumInterfaceClass) ."' must implement EnumInterface");
         }
 
         try {
-            $reflection = new ReflectionClass($class);
-
-            $constants = $reflection->getConstants();
-
-            $r = array_diff(array_keys($this->values), $constants);
-
-            if(count($r)) {
-                throw new EnumMismatchException();
+            /** @var EnumInterface[] $enumValues */
+            $enumValues = ($this->callback)($this->enumInterfaceClass);
+            $enumValuesKeys = [];
+            foreach($enumValues as $ev) {
+                $enumValuesKeys[] = $ev->enumValueGet();
             }
+
+            return new EnumContainer($enumValues);
 
         } catch (\ReflectionException $e) {
             throw new EnumException($e->getMessage(), null, $e);
