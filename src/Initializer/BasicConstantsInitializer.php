@@ -59,8 +59,8 @@ class BasicConstantsInitializer implements EnumInitializerInterface
 
                     /** @var EnumInterface $v */
                     $v = $reflection->newInstanceWithoutConstructor();
-
-                    $values[$c] = $v->enumValueSet($c);
+                    $v->enumValueSet($c);
+                    $values[$c] = $v;
                 }
             }
 
