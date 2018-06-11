@@ -86,13 +86,29 @@ trait EnumTrait
      */
     public static function has($value)
     {
-        if(!is_scalar($value)) {
+        if (!is_scalar($value)) {
             return false;
         }
 
         $value = "$value";
 
         return self::enum()->has($value);
+    }
+
+    /**
+     * @return EnumInterface[]|null
+     */
+    public static function values()
+    {
+        return self::enum()->values();
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function valuesKeys()
+    {
+        return self::enum()->valuesKeys();
     }
 
     /**
