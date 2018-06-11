@@ -44,7 +44,7 @@ trait EnumTrait
      */
     public static function enum($value = null)
     {
-        if(self::$enumContainer === null) {
+        if (self::$enumContainer === null) {
             try {
                 self::$enumContainer = Enum::get(get_called_class());
             } catch (EnumException $e) {
@@ -52,7 +52,7 @@ trait EnumTrait
             }
         }
 
-        if($value === null) {
+        if ($value === null) {
             return self::$enumContainer;
         }
 
@@ -65,20 +65,34 @@ trait EnumTrait
      */
     public function equals($value)
     {
-        if($value instanceof EnumInterface) {
+        if ($value instanceof EnumInterface) {
             $value = [$value];
-        }
-        elseif(is_string($value)) {
+        } elseif (is_string($value)) {
             return ($this->enumValueGet() === $value);
         }
 
-        foreach($value as $v) {
-            if($this->enumValueGet() == $v->enumValueGet()) {
+        foreach ($value as $v) {
+            if ($this->enumValueGet() == $v->enumValueGet()) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    /**
+     * @param string $value
+     * @return bool
+     */
+    public static function has($value)
+    {
+        if(!is_scalar($value)) {
+            return false;
+        }
+
+        $value = "$value";
+
+        return self::enum()->has($value);
     }
 
     /**

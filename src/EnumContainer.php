@@ -28,12 +28,19 @@ class EnumContainer
      */
     public function v($value)
     {
-        if(isset($this->enumValues[$value])) {
+        if (isset($this->enumValues[$value])) {
             return $this->enumValues[$value];
         }
 
         return null;
     }
 
-
+    /**
+     * @param string $value
+     * @return bool
+     */
+    public function has($value)
+    {
+        return isset($this->enumValues[$value]);
+    }
 }
