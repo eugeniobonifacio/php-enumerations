@@ -11,13 +11,16 @@ namespace EugenioBonifacio\Enumerations;
 
 class EnumContainer
 {
+    /**
+     * @var EnumInterface[]
+     */
     protected $enumValues = null;
 
     /**
      * EnumContainer constructor.
      * @param EnumInterface[] $values
      */
-    public function __construct($values)
+    public function __construct(array $values)
     {
         $this->enumValues = $values;
     }
@@ -44,11 +47,17 @@ class EnumContainer
         return isset($this->enumValues[$value]);
     }
 
+    /**
+     * @return EnumInterface[]
+     */
     public function values()
     {
         return $this->enumValues;
     }
 
+    /**
+     * @return string[]
+     */
     public function valuesKeys()
     {
         return array_keys($this->enumValues);
