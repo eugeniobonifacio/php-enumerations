@@ -68,7 +68,7 @@ class CallbackReflectionConstantsInitializer implements EnumInitializerInterface
                 $enumValuesKeys[] = $ev->enumValueGet();
             }
 
-            $r = array_diff($enumValuesKeys, $values);
+            $r = array_diff($values, $enumValuesKeys);
 
             if(count($r)) {
                 throw new EnumMismatchException();
