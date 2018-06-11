@@ -9,18 +9,15 @@
 namespace EugenioBonifacio\Enumerations\Initializer;
 
 
-use EugenioBonifacio\Enumerations\Enum;
-use EugenioBonifacio\Enumerations\EnumInterface;
-use ReflectionClass;
-use ReflectionMethod;
+use EugenioBonifacio\Enumerations\EnumInitializerInterface;
 
-class ReflectionMethodsInitializer //implements EnumInitializerInterface
+class ReflectionMethodsInitializer implements EnumInitializerInterface
 {
 //    /**
 //     * @return Enum
 //     * @throws EnumException
 //     */
-    public function enumInit($enumInterfaceClass)
+    public function enumInit()
     {
 //        $values = [];
 //
