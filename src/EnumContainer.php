@@ -43,4 +43,14 @@ class EnumContainer
     {
         return isset($this->enumValues[$value]);
     }
+
+    public function values()
+    {
+        return $this->enumValues;
+    }
+
+    public function valuesKeys()
+    {
+        return array_keys($this->enumValues);
+    }
 }
