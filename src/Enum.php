@@ -46,21 +46,18 @@ class Enum
      */
     public static function get($enumInterfaceClass)
     {
-        if(isset(self::$enums[$enumInterfaceClass])) {
+        if (isset(self::$enums[$enumInterfaceClass])) {
             return self::$enums[$enumInterfaceClass];
-        }
-        elseif(isset(self::$initializers[$enumInterfaceClass])) {
+        } elseif (isset(self::$initializers[$enumInterfaceClass])) {
             self::$enums[$enumInterfaceClass] = self::$initializers[$enumInterfaceClass]->enumInit();
             return self::$enums[$enumInterfaceClass];
-        }
-        elseif(method_exists($enumInterfaceClass, 'enumInit')) {
+        } elseif (in_array(EnumStaticInitializerInterface::class, class_implements($enumInterfaceClass))) {
 
             $result = call_user_func([$enumInterfaceClass, 'enumInit']);
 
-            if($result instanceof EnumContainer) {
+            if ($result instanceof EnumContainer) {
                 self::$enums[$enumInterfaceClass] = $result;
-            }
-            else {
+            } else {
                 throw new EnumException("Enum '" . $enumInterfaceClass . "' static enumInit() did not return an '" . EnumContainer::class . "' object");
             }
 
@@ -77,11 +74,11 @@ class Enum
      */
     public static function setInitializer($enumInterfaceClass, EnumInitializerInterface $initializer)
     {
-        if(!in_array(EnumInterface::class, class_implements($enumInterfaceClass))) {
-            throw new EnumException("'" . get_class($enumInterfaceClass) ."' must implement " . EnumInterface::class);
+        if (!in_array(EnumInterface::class, class_implements($enumInterfaceClass))) {
+            throw new EnumException("'" . get_class($enumInterfaceClass) . "' must implement " . EnumInterface::class);
         }
 
-        if(isset(self::$enums[$enumInterfaceClass])) {
+        if (isset(self::$enums[$enumInterfaceClass])) {
             throw new EnumException("Enum already initialized");
         }
 
