@@ -89,7 +89,16 @@ class Enum
         return (isset(self::$enums[$enumInterfaceClass]));
     }
 
+    public static function hasInitializer($enumInterfaceClass) {
+        return (isset(self::$initializers[$enumInterfaceClass]));
+    }
+
     public static function reset() {
         self::$enums = [];
+    }
+
+    public static function init() {
+        self::$enums = [];
+        self::$initializers = [];
     }
 }
