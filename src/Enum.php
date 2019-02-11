@@ -97,6 +97,17 @@ class Enum
         self::$enums = [];
     }
 
+    public static function remove($enumInterfaceClass) {
+
+        if (isset(self::$enums[$enumInterfaceClass])) {
+            unset(self::$enums[$enumInterfaceClass]);
+        }
+
+        if(isset(self::$initializers[$enumInterfaceClass])) {
+            unset(self::$initializers[$enumInterfaceClass]);
+        }
+    }
+
     public static function init() {
         self::$enums = [];
         self::$initializers = [];
