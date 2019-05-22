@@ -9,7 +9,7 @@
 namespace EugenioBonifacio\Enumerations;
 
 
-class EnumWrapper
+class EnumWrapper implements EnumInterface
 {
     /** @var string */
     protected $key;
@@ -62,5 +62,21 @@ class EnumWrapper
     {
         $this->value = $value;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function enumValueGet()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * @return self
+     */
+    public function enumValueSet($value)
+    {
+        return $this->setKey($value);
     }
 }
