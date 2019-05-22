@@ -31,7 +31,7 @@ namespace EugenioBonifacio\Enumerations;
  * Trait EnumTrait
  * @package EugenioBonifacio\Enumerations
  */
-trait EnumTrait
+trait EnumProviderTrait
 {
     /**
      * @var EnumContainer
