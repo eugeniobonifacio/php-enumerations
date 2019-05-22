@@ -74,7 +74,7 @@ class Enum
      */
     public static function setInitializer($enumInterfaceClass, EnumInitializerInterface $initializer)
     {
-        if (!in_array(EnumInterface::class, class_implements($enumInterfaceClass))) {
+        if (!in_array(EnumProviderInterface::class, class_implements($enumInterfaceClass))) {
             throw new EnumException("'" . get_class($enumInterfaceClass) . "' must implement " . EnumInterface::class);
         }
 
@@ -100,6 +100,7 @@ class Enum
     public static function remove($enumInterfaceClass) {
 
         if (isset(self::$enums[$enumInterfaceClass])) {
+            call_user_func([$enumInterfaceClass, 'reset']);
             unset(self::$enums[$enumInterfaceClass]);
         }
 

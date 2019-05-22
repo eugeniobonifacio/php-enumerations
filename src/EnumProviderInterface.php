@@ -36,6 +36,12 @@ interface EnumProviderInterface extends EnumInterface
     public static function enum($value);
 
     /**
+     * @param string $value
+     * @return self
+     */
+    public static function reset();
+
+    /**
      * @param EnumInterface|EnumInterface[] $value
      * @return boolean
      */

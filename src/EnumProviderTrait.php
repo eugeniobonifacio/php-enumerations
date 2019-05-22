@@ -111,6 +111,11 @@ trait EnumProviderTrait
         return self::enum()->valuesKeys();
     }
 
+    public static function reset()
+    {
+        self::$enumContainer = null;
+    }
+
     /**
      * @return mixed
      */
