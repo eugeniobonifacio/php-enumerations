@@ -14,10 +14,10 @@ use EugenioBonifacio\Enumerations\EnumException;
 use EugenioBonifacio\Enumerations\EnumInitializerInterface;
 use EugenioBonifacio\Enumerations\EnumInterface;
 use EugenioBonifacio\Enumerations\EnumMismatchException;
-use EugenioBonifacio\Enumerations\EnumWrapper;
+use EugenioBonifacio\Enumerations\EnumValue;
 use ReflectionClass;
 
-class EnumWrapperConstantsInitializer implements EnumInitializerInterface
+class EnumValueConstantsInitializer implements EnumInitializerInterface
 {
     protected $prefix = 'ENUM_';
     protected $enumInterfaceClass = null;
@@ -63,7 +63,7 @@ class EnumWrapperConstantsInitializer implements EnumInitializerInterface
             }
 
             $cb = $this->callback;
-            /** @var EnumWrapper[] $enumWrappers */
+            /** @var EnumValue[] $enumWrappers */
             $enumWrappers = $cb($this->enumInterfaceClass);
             $enumValues = [];
             $enumValuesKeys = [];

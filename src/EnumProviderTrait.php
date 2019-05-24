@@ -35,7 +35,7 @@ trait EnumProviderTrait
 {
     /**
      * @param string $value
-     * @return EnumContainer|\EugenioBonifacio\Enumerations\EnumInterface|self
+     * @return EnumInterface|EnumContainer|EnumValue|self
      */
     public static function enum($value = null)
     {
@@ -49,7 +49,36 @@ trait EnumProviderTrait
             return $enumContainer;
         }
 
-        return $enumContainer->v($value);
+        return $enumContainer->enum($value);
+    }
+
+    /**
+     * @param EnumValueInterface $enum1
+     * @param string|string[]|EnumValueInterface|EnumValueInterface[] $enum2
+     * @return bool
+     */
+    public static function in(EnumValueInterface $enum1, $enum2)
+    {
+        $value = [];
+        if (is_scalar($enum2)) {
+            $value = [$enum2];
+        }
+        elseif(is_array($enum2)) {
+            $value = $enum2;
+        }
+
+        foreach ($value as $v) {
+            if($v instanceof EnumValueInterface) {
+                if ($enum1->hashValue() === $v->hashValue()){
+                    return true;
+                }
+            }
+            elseif($enum1->enumValueGet() === $v) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

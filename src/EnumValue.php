@@ -9,7 +9,7 @@
 namespace EugenioBonifacio\Enumerations;
 
 
-class EnumWrapper implements EnumInterface
+class EnumValue implements EnumValueInterface
 {
     /** @var string */
     protected $key;
@@ -38,7 +38,7 @@ class EnumWrapper implements EnumInterface
 
     /**
      * @param string $key
-     * @return EnumWrapper
+     * @return EnumValue
      */
     public function setKey($key)
     {
@@ -56,12 +56,17 @@ class EnumWrapper implements EnumInterface
 
     /**
      * @param object $value
-     * @return EnumWrapper
+     * @return EnumValue
      */
     public function setValue($value)
     {
         $this->value = $value;
         return $this;
+    }
+
+    public function hashValue()
+    {
+        return md5(get_class($this->getValue()) . ':' . $this->getKey());
     }
 
     /**

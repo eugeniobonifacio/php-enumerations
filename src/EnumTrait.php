@@ -31,8 +31,13 @@ namespace EugenioBonifacio\Enumerations;
  * Trait EnumTrait
  * @package EugenioBonifacio\Enumerations
  */
-trait EnumEntityTrait
+trait EnumTrait
 {
+    public function hashValue()
+    {
+        return md5(get_called_class() . ':' . $this->enumValueGet());
+    }
+
     /**
      * @param string|EnumInterface|EnumInterface[] $value
      * @return boolean
@@ -46,7 +51,7 @@ trait EnumEntityTrait
         }
 
         foreach ($value as $v) {
-            if ($this->enumValueGet() == $v->enumValueGet()) {
+            if ($this->hashValue() == $v->hashValue()) {
                 return true;
             }
         }
