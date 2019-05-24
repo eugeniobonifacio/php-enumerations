@@ -34,29 +34,22 @@ namespace EugenioBonifacio\Enumerations;
 trait EnumTrait
 {
     /**
-     * @var EnumContainer
-     */
-    protected static $enumContainer = null;
-
-    /**
      * @param string $value
      * @return EnumContainer|\EugenioBonifacio\Enumerations\EnumInterface|self
      */
     public static function enum($value = null)
     {
-        if (self::$enumContainer === null) {
-            try {
-                self::$enumContainer = Enum::get(get_called_class());
-            } catch (EnumException $e) {
-                throw new \RuntimeException($e->getMessage(), 0, $e);
-            }
+        try {
+            $enumContainer = Enum::get(get_called_class());
+        } catch (EnumException $e) {
+            throw new \RuntimeException($e->getMessage(), 0, $e);
         }
 
         if ($value === null) {
-            return self::$enumContainer;
+            return $enumContainer;
         }
 
-        return self::$enumContainer->v($value);
+        return $enumContainer->v($value);
     }
 
     /**
