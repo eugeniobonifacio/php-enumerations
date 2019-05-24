@@ -48,7 +48,7 @@ class EnumWrapperConstantsInitializer implements EnumInitializerInterface
         $values = [];
 
         if(!in_array(EnumInterface::class, class_implements($this->enumInterfaceClass))) {
-            throw new EnumException("'" . get_class($this->enumInterfaceClass) ."' must implement EnumInterface");
+            throw new EnumException("'" . $this->enumInterfaceClass ."' must implement EnumInterface");
         }
 
         try {
