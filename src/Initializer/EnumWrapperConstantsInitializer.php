@@ -69,7 +69,7 @@ class EnumWrapperConstantsInitializer implements EnumInitializerInterface
             $enumValuesKeys = [];
             foreach($enumWrappers as $ev) {
                 $enumValuesKeys[] = $ev->getKey();
-                $enumValues[$ev->getKey()] = $ev->getValue();
+                $enumValues[$ev->getKey()] = $ev;
             }
 
             $r = array_diff($values, $enumValuesKeys);
