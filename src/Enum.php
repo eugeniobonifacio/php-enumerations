@@ -100,7 +100,6 @@ class Enum
     public static function remove($enumInterfaceClass) {
 
         if (isset(self::$enums[$enumInterfaceClass])) {
-            call_user_func([$enumInterfaceClass, 'reset']);
             unset(self::$enums[$enumInterfaceClass]);
         }
 
