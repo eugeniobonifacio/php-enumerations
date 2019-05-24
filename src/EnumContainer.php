@@ -9,7 +9,7 @@
 namespace EugenioBonifacio\Enumerations;
 
 
-class EnumContainer
+class EnumContainer implements EnumContainerInterface
 {
     /**
      * @var EnumInterface[]
@@ -29,7 +29,7 @@ class EnumContainer
      * @param string $value
      * @return EnumInterface
      */
-    public function v($value)
+    public function enum($value)
     {
         if (isset($this->enumValues[$value])) {
             return $this->enumValues[$value];
