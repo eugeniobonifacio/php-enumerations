@@ -31,55 +31,34 @@ namespace EugenioBonifacio\Enumerations;
  * Trait EnumTrait
  * @package EugenioBonifacio\Enumerations
  */
-trait EnumProviderTrait
+trait EnumEntityTrait
 {
     /**
-     * @param string $value
-     * @return EnumContainer|\EugenioBonifacio\Enumerations\EnumInterface|self
+     * @param string|EnumInterface|EnumInterface[] $value
+     * @return boolean
      */
-    public static function enum($value = null)
+    public function equals($value)
     {
-        try {
-            $enumContainer = Enum::get(get_called_class());
-        } catch (EnumException $e) {
-            throw new \RuntimeException($e->getMessage(), 0, $e);
+        if ($value instanceof EnumInterface) {
+            $value = [$value];
+        } elseif (is_string($value)) {
+            return ($this->enumValueGet() === $value);
         }
 
-        if ($value === null) {
-            return $enumContainer;
+        foreach ($value as $v) {
+            if ($this->enumValueGet() == $v->enumValueGet()) {
+                return true;
+            }
         }
 
-        return $enumContainer->v($value);
+        return false;
     }
 
     /**
-     * @param string $value
-     * @return bool
+     * @return mixed
      */
-    public static function has($value)
+    public function __toString()
     {
-        if (!is_scalar($value)) {
-            return false;
-        }
-
-        $value = "$value";
-
-        return static::enum()->has($value);
-    }
-
-    /**
-     * @return EnumInterface[]|null
-     */
-    public static function values()
-    {
-        return self::enum()->values();
-    }
-
-    /**
-     * @return string[]
-     */
-    public static function valuesKeys()
-    {
-        return self::enum()->valuesKeys();
+        return $this->enumValueGet();
     }
 }

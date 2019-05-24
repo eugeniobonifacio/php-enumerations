@@ -27,7 +27,7 @@
 namespace EugenioBonifacio\Enumerations;
 
 
-interface EnumProviderInterface extends EnumInterface
+interface EnumProviderInterface
 {
     /**
      * @param string $value
@@ -37,15 +37,17 @@ interface EnumProviderInterface extends EnumInterface
 
     /**
      * @param string $value
-     * @return self
+     * @return bool
      */
-    public static function reset();
+    public static function has($value);
 
     /**
-     * @param EnumInterface|EnumInterface[] $value
-     * @return boolean
+     * @return EnumInterface[]|null
      */
-    public function equals($value);
+    public static function values();
 
-    public function __toString();
+    /**
+     * @return string[]
+     */
+    public static function valuesKeys();
 }

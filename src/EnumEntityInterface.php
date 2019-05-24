@@ -27,59 +27,13 @@
 namespace EugenioBonifacio\Enumerations;
 
 
-/**
- * Trait EnumTrait
- * @package EugenioBonifacio\Enumerations
- */
-trait EnumProviderTrait
+interface EnumEntityInterface extends EnumInterface
 {
     /**
-     * @param string $value
-     * @return EnumContainer|\EugenioBonifacio\Enumerations\EnumInterface|self
+     * @param EnumInterface|EnumInterface[] $value
+     * @return boolean
      */
-    public static function enum($value = null)
-    {
-        try {
-            $enumContainer = Enum::get(get_called_class());
-        } catch (EnumException $e) {
-            throw new \RuntimeException($e->getMessage(), 0, $e);
-        }
+    public function equals($value);
 
-        if ($value === null) {
-            return $enumContainer;
-        }
-
-        return $enumContainer->v($value);
-    }
-
-    /**
-     * @param string $value
-     * @return bool
-     */
-    public static function has($value)
-    {
-        if (!is_scalar($value)) {
-            return false;
-        }
-
-        $value = "$value";
-
-        return static::enum()->has($value);
-    }
-
-    /**
-     * @return EnumInterface[]|null
-     */
-    public static function values()
-    {
-        return self::enum()->values();
-    }
-
-    /**
-     * @return string[]
-     */
-    public static function valuesKeys()
-    {
-        return self::enum()->valuesKeys();
-    }
+    public function __toString();
 }
