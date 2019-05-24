@@ -13,6 +13,7 @@ use EugenioBonifacio\Enumerations\EnumContainer;
 use EugenioBonifacio\Enumerations\EnumException;
 use EugenioBonifacio\Enumerations\EnumInitializerInterface;
 use EugenioBonifacio\Enumerations\EnumInterface;
+use EugenioBonifacio\Enumerations\EnumValue;
 
 class CallbackInitializer implements EnumInitializerInterface
 {
@@ -37,19 +38,19 @@ class CallbackInitializer implements EnumInitializerInterface
      */
     public function enumInit()
     {
-        $values = [];
-
         if(!in_array(EnumInterface::class, class_implements($this->enumInterfaceClass))) {
             throw new EnumException("'" . get_class($this->enumInterfaceClass) ."' must implement EnumInterface");
         }
 
         try {
-            /** @var EnumInterface[] $enumValues */
             $cb = $this->callback;
-            $enumValues = $cb($this->enumInterfaceClass);
+            /** @var EnumInterface[] $values */
+            $values = $cb($this->enumInterfaceClass);
             $enumValuesKeys = [];
-            foreach($enumValues as $ev) {
+            $enumValues = [];
+            foreach($values as $ev) {
                 $enumValuesKeys[] = $ev->enumValueGet();
+                $enumValues[$ev->enumValueGet()] = new EnumValue($ev->enumValueGet(), $ev);
             }
 
             return new EnumContainer($enumValues);

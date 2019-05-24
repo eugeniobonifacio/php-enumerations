@@ -9,12 +9,11 @@
 namespace EugenioBonifacio\Enumerations\Initializer;
 
 
-use EugenioBonifacio\Enumerations\Enum;
 use EugenioBonifacio\Enumerations\EnumContainer;
 use EugenioBonifacio\Enumerations\EnumException;
 use EugenioBonifacio\Enumerations\EnumInitializerInterface;
 use EugenioBonifacio\Enumerations\EnumInterface;
-use EugenioBonifacio\Enumerations\EnumMismatchException;
+use EugenioBonifacio\Enumerations\EnumValue;
 use ReflectionClass;
 
 class BasicConstantsInitializer implements EnumInitializerInterface
@@ -60,7 +59,7 @@ class BasicConstantsInitializer implements EnumInitializerInterface
                     /** @var EnumInterface $v */
                     $v = $reflection->newInstanceWithoutConstructor();
                     $v->enumValueSet($c);
-                    $values[$c] = $v;
+                    $values[$c] = new EnumValue($c, $v);
                 }
             }
 

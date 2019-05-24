@@ -14,6 +14,7 @@ use EugenioBonifacio\Enumerations\EnumException;
 use EugenioBonifacio\Enumerations\EnumInitializerInterface;
 use EugenioBonifacio\Enumerations\EnumInterface;
 use EugenioBonifacio\Enumerations\EnumMismatchException;
+use EugenioBonifacio\Enumerations\EnumValue;
 use ReflectionClass;
 
 class ReflectionConstantsInitializer implements EnumInitializerInterface
@@ -59,7 +60,7 @@ class ReflectionConstantsInitializer implements EnumInitializerInterface
 
             foreach($constants as $k => $c) {
                 if(strpos($k, $this->prefix) === 0) {
-                    $values[$k] = $c;
+                    $values[$k] = new EnumValue($k, $c);
                 }
             }
 

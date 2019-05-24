@@ -14,6 +14,7 @@ use EugenioBonifacio\Enumerations\EnumException;
 use EugenioBonifacio\Enumerations\EnumInitializerInterface;
 use EugenioBonifacio\Enumerations\EnumInterface;
 use EugenioBonifacio\Enumerations\EnumMismatchException;
+use EugenioBonifacio\Enumerations\EnumValue;
 use ReflectionClass;
 
 class CallbackReflectionConstantsInitializer implements EnumInitializerInterface
@@ -61,12 +62,13 @@ class CallbackReflectionConstantsInitializer implements EnumInitializerInterface
                 }
             }
 
-            /** @var EnumInterface[] $enumValues */
             $cb = $this->callback;
-            $enumValues = $cb($this->enumInterfaceClass);
+            /** @var EnumInterface[] $values */
+            $values = $cb($this->enumInterfaceClass);
             $enumValuesKeys = [];
-            foreach($enumValues as $ev) {
+            foreach($values as $ev) {
                 $enumValuesKeys[] = $ev->enumValueGet();
+                $enumValues[$ev->enumValueGet()] = new EnumValue($ev->enumValueGet(), $ev);
             }
 
             $r = array_diff($values, $enumValuesKeys);
