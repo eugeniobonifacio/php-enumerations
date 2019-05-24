@@ -27,13 +27,17 @@
 namespace EugenioBonifacio\Enumerations;
 
 
-interface EnumEntityInterface extends EnumInterface
+interface EnumValueInterface
 {
-    /**
-     * @param EnumInterface|EnumInterface[] $value
-     * @return boolean
-     */
-    public function equals($value);
+    public function hashValue();
 
-    public function __toString();
+    /**
+     * @return string
+     */
+    public function enumValueGet();
+
+    /**
+     * @return self
+     */
+    public function enumValueSet($value);
 }
