@@ -75,7 +75,7 @@ class Enum
     public static function setInitializer($enumInterfaceClass, EnumInitializerInterface $initializer)
     {
         if (!in_array(EnumInterface::class, class_implements($enumInterfaceClass))) {
-            throw new EnumException("'" . get_class($enumInterfaceClass) . "' must implement " . EnumInterface::class);
+            throw new EnumException("'" . $enumInterfaceClass . "' must implement " . EnumInterface::class);
         }
 
         if (isset(self::$enums[$enumInterfaceClass])) {
