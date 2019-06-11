@@ -62,7 +62,8 @@ class CallbackReflectionConstantsInitializer implements EnumInitializerInterface
             }
 
             /** @var EnumInterface[] $enumValues */
-            $enumValues = ($this->callback)($this->enumInterfaceClass);
+            $cb = $this->callback;
+            $enumValues = $cb($this->enumInterfaceClass);
             $enumValuesKeys = [];
             foreach($enumValues as $ev) {
                 $enumValuesKeys[] = $ev->enumValueGet();

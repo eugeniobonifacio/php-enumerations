@@ -35,7 +35,7 @@ trait EnumTrait
 {
     /**
      * @param string $value
-     * @return EnumContainer|\EugenioBonifacio\Enumerations\EnumInterface|self
+     * @return EnumContainer|\EugenioBonifacio\Enumerations\EnumInterface|static
      */
     public static function enum($value = null)
     {
