@@ -9,12 +9,10 @@
 namespace EugenioBonifacio\Enumerations\Initializer;
 
 
-use EugenioBonifacio\Enumerations\Enum;
 use EugenioBonifacio\Enumerations\EnumContainer;
 use EugenioBonifacio\Enumerations\EnumException;
 use EugenioBonifacio\Enumerations\EnumInitializerInterface;
 use EugenioBonifacio\Enumerations\EnumInterface;
-use EugenioBonifacio\Enumerations\EnumMismatchException;
 use ReflectionClass;
 
 class BasicConstantsInitializer implements EnumInitializerInterface
