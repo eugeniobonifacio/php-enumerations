@@ -45,7 +45,8 @@ class CallbackInitializer implements EnumInitializerInterface
 
         try {
             /** @var EnumInterface[] $enumValues */
-            $enumValues = ($this->callback)($this->enumInterfaceClass);
+            $cb = $this->callback;
+            $enumValues = $cb($this->enumInterfaceClass);
             $enumValuesKeys = [];
             foreach($enumValues as $ev) {
                 $enumValuesKeys[] = $ev->enumValueGet();
